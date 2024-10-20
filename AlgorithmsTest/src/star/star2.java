@@ -6,10 +6,10 @@ public class star2 {
 		int size = 5;
 		int floor = 1;
 		
-		while(floor <= size) {
+		while(floor(size, floor)) {
 			
 			int star = 0;
-			while (star < floor) {
+			while (star(floor, star)) {
 				System.out.print("*");
 				star++;
 			}
@@ -20,6 +20,14 @@ public class star2 {
 		}
 		
 
+	}
+
+	private static boolean star(int floor, int star) {
+		return star < floor;
+	}
+
+	private static boolean floor(int size, int floor) {
+		return floor <= size;
 	}
 
 }
