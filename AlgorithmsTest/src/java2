@@ -1,0 +1,230 @@
+상속, 다형성, 컬렉션, 제네릭
+
+
+  void setName(String name) { this.name = name; }
+}
+
+class Student extends Human { 
+	void studyPhysics(){
+    	System.out.println(this.name + " studies physics");
+    }
+} 
+
+void main(){
+  Student danny = new Student();
+  danny.setName("danny.kim");
+  danny.studyPhysics(); //danny.kim studies physics
+}
+studyPhysics() 메서드를 추가함으로써 Student 클래스만의 특징적인 메소드를 갖게 됨
+IS-A 관계
+Student 클래스는 Human 클래스를 상속
+-> Student 클래스는 Human 클래스의 하위 개념
+-> "Student는 Human 이다" 라고 표현할 수 있음
+-> "Student is a Human." = IS-A 관계
+
+자식 클래스의 객체는 부모 클래스의 자료형인 것처럼 사용할 수 있음
+Human danny = new Student();
+
+주의. 이 때는 Student 에서 제공하는 studyPhysics() 메소드를 활용할 수 없음
+
+반대로 작성하려고 하면 컴파일 오류 발생
+Student danny = new Human(); //컴파일 오류
+
+Object 클래스
+자바의 모든 클래스는 Object 클래스를 상속 받음
+따라서, 다음과 같이 코드를 작성할 수 있음
+
+class Human extends Object {
+	String name;
+    
+    void setName(String name) {this.name = name;}
+}
+
+Object human = new Human(); // Human is a object
+Object danny = new Student(); // Student is a object
+오버라이딩(Overriding)과 오버로딩 (Overloading)
+오버라이딩(Overriding)
+
+부모 클래스의 메소드를 자식 클래스가 동일한 형태로 또 다시 구현하는 행위
+"덮어쓰기"
+오버로딩(Overloading)
+
+입력 파라미터가 다른 경우에는 동일한 이름으로 메소드를 만들 수 있음
+메소드 오바리이딩(Overriding)
+
+class Human {
+  string name;
+  void setName(String name) { this.name = name; }
+}
+
+class Student extends Human { 
+	void study(){
+  	  System.out.println(this.name + "studies");  
+   }
+} 
+
+class HighSchoolStudent extends Student {
+	void study(){
+    	System.out.println(this.name + "studies at high school");
+    }
+}
+
+HighSchoolStudent danny = new HighSchoolStudent();
+danny.setName("danny.kim");
+danny.study(); //danny.kim studies at high school
+"danny.kim studies" 가 아니라 study()메소드가 오버라이딩 되어 "danny.kim studies at high school"이 노출됨
+
+메소드 오버로딩 (Overloading)
+
+class Human {
+  string name;
+  void setName(String name) { this.name = name; }
+}
+
+class Student extends Human { 
+	void study(){
+  	  System.out.println(this.name + "studies");  
+   }
+   
+   void study(String subjectName){
+   	  System.out.println(this.name + "studies" + subjectName);
+   }
+} 
+
+Student danny = new Student();
+danny.setName("danny.kim");
+
+danny.study(); //danny studies
+danny.study("physics"); // danny studies physics
+다중 상속
+클래스가 동시에 하나 이상의 클래스를 상속받는 것을 의미
+-> 부모 클래스가 여러 개가 존재할 수 있음
+-> 자바는 다중 상속을 지원하지 않음
+
+다형성(Polymorphism)
+하나의 객체가 여러 가지 형탵를 가질 수 있는 것을 의미
+오버로딩, 오버라이딩, 인터페이스 등 모두 다형성에 포함됨
+
+추상클래스
+추상 클래스 - abstract class
+인터페이스의 역할도 하면서 클래스의 기능도 가지고 있음
+최소 하나의 추상 메소드를 포함하고 있으면 추상 클래스
+class 앞에 abstract 키워드를 사용해서 표현해야 함
+인터페이스에서의 메소드와 같이 행동하는 메소드는 마찬가지로 abstract 키워드를 사용해야 함
+abstract 클래스도 하나의 클래스이기 때문에 인터페이스와 다르게 객체 변수, 생성자, private 메소드 등을 가질 수 있음
+
+컬렉션(Collection)
+컬렉션은 많은 양의 데이터를 처리하기 위해 그 목적에 적합한 데이터 구조를 의미함
+인터페이스와 클래스로 구현되어 있음
+
+컬렉션의 종류
+컬렉션은 상당히 빈번하게 사용되기 때문에 그 사용 방법을 아는 것이 중요함
+크게 5가지 종류
+List. 데이터를 순서에 따라 관리
+Set. 중복이 허용되지 않는 데이터를 관리
+Map. Key와 Value 로 짝을 이루어 관리, key 값은 중복되지 않음
+Queue. 데이터의 in-out 을 FIFO 방식으로 관리(First In First Out)
+Stack. 데이터의 in-out 을 LIFO 방식으로 관리 (Last In First Out)
+
+리스트(List)
+List. 데이터를 순서에 따라 관리
+-ArrayList, LinkedList, Vector 등이 있음
+
+List<String> list = new ArrayList<String>();
+
+list.add("A");
+list.add("B");
+list.add("C");
+list.add("A");
+셋 (Set)
+Set - 중복이 허용되지 않는 데이터를 관리
+
+HashSet, SortedSet, TreeSet 등이 있음
+Set<Sring> set = new HashSet<String>();
+set.add("A");
+set.add("B");
+set.add("C");
+set.add("A");
+큐(Queue)
+데이터의 in-out 을 FIFO 방식으롸 관리(First In First Out)
+
+PriorityQueue 등이 있음
+Queue<String> queue = new PriorityQueue<>();
+
+queue.add("A");
+queue.add("B");
+queue.add("C");
+queue.add("D");
+
+queue.poll(); //A
+queue.poll(); //B
+queue.poll(); //C
+queue.poll(); //D
+스택(Stack)
+데이터의 in-out 을 LIFO 방식으롸 관리(Last In First Out)
+
+Stack<String> stack = new Stack<>();
+
+stack.add("A");
+stack.add("B");
+stack.add("C");
+stack.add("D");
+
+stack.pop(); //D
+stack.pop(); //C
+stack.pop(); //B
+stack.pop(); //A
+컬렉션의 특징
+데이터 타입을 객체(object) 만 가능함 (따라서, primitive type 은 사용할 수 없음)
+
+제네릭 형태로 구현되어 있음. 따라서 다양한 데이터 형태를 자유롭게 활용할 수 있음
+public interface List extends Collection {...}
+
+컬렉션의 주요 메서드
+boolean add(E e); //현재 컬렉션에 데이터 객체 e를 추가
+boolean contaions(Obejct o); // 현재 컬렉션에 객체 o가 포함되어 있는지 확인
+boolean remove(Object o); //현재 컬렉션에서 객체 o를 제거
+void clear(); //현재 컬렉션에서 모든 데이터 삭제
+int size(); //현재 컬렉션의 크기
+boolean isEmpty(); // 현재 컬렉션이 비어있는지 확인
+
+제네릭
+한 번의 정의로 여러 종류의 데이터 타입을 다룰 수 있도록 하는 방법
+
+public class ArrayList<E> extends Abstract<E> implements List<E>,...{}
+  
+ArrayList<String> list1 = new ArrayList<String>(); //String 리스트로 사용 가능
+ArrayList<Integer> list2 = new ArrayList<Integer>(); //Integer 리스트로 사용 가능
+활용1
+
+public class ObjectMapperUtil {
+  private ObjectMapper objectMapper;
+  
+  public ObjectMapperUtil(ObjectMapper objectMapper){ this.objectMapper = objectMapper;}
+  
+  public <T> T readValue(String s, class<T> tClass){
+  	try {
+  		return objectMapper.readValue(s, tClass);
+  	}
+  }
+}
+  
+String student = "{\"name\": \"danny.kim\"}";
+objectMapperUtil.readValue(a, Student.class);
+활용2
+
+public class ResultResponse<T>{
+  private boolean success;
+  private String code;
+  private String message;
+  private T data;
+  
+  public static <T> ResultResponse<T> ok(T data){ return new ResultResponse<>(true, "200", null, data); }
+  public static <T> ResultResponse<T> fail(String message){
+    return new ResultRespone<>(false, "500", message, null);
+  }
+}
+  
+public ResultResponse<AbcDto> search(){
+  return ResultResponse.ok(...);  
+}
